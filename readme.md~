@@ -293,6 +293,9 @@ function carawebs_carousel_control(){
     wp_enqueue_script('carawebs_carousel');
     wp_enqueue_script('touchswipe');
     wp_enqueue_script('touchControl');
+
+
+
 	}
 }
 // Add hooks for front-end
