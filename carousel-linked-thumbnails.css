@@ -1,0 +1,67 @@
+/* ==========================================================================
+    Carousel
+   ========================================================================== */
+
+.carousel {
+  position: relative;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+#slider-thumbs li,
+.carousel-thumbnails li {
+  display: inline-block;
+  }
+
+ul.carousel-thumbnails {
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+  }
+
+#slider-thumbs ul {}
+.list-inline img,
+.carousel-thumbnails img {
+  opacity: 0.5;
+  max-height: 80px;
+  }
+
+.carousel-thumbnails img:hover {
+  opacity: 1;
+  }
+
+.selected img,
+.carousel-thumbnails .selected img {
+  opacity: 1;
+  }
+
+#myCarousel .item {
+  width: 100%; /*slider width*/
+  max-height: 800px; /*slider height*/
+  height: 800px;
+}
+
+.carousel-inner > .item > img {
+  margin: 0 auto;
+}
+
+.carousel .carousel-control {
+  background: transparent;
+  border: none;
+  top: 50%;
+}
+
+.carousel-control .icon-prev,
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+  top: 0;
+}
+
+/*full width container*/
+@media (max-width: 767px) {
+    .block {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+}
