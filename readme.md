@@ -308,6 +308,9 @@ add_action('wp_enqueue_scripts', 'carawebs_carousel_control', 101);
 ##Mobile Swipe Support
 I used the [touchSwipe jQuery plugin](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin/blob/master/jquery.touchSwipe.js) to achieve swipe support for mobile devices. This plugin is copyright (c) 2010 Matt Bryson and is dual licensed under the MIT or GPL Version 2 licenses.
 
+**/assets/js/vendor/jquery.touchSwipe.min.js** and the control script, **/assets/js/vendor/touchControl.js** are enqueued in the function presented above. Contents of touchControl.js:
+
+
 I plan to build in conditional logic so that touchSwipe is only loaded for mobile devices.
 
 ```
