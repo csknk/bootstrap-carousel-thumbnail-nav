@@ -23,13 +23,13 @@ This is really two linked carousels:
 
 The thumbnail carousel targets the main carousel by means of the Bootstrap **data-target** attribute. The following code block shows how the carousel with id "myCarousel" is targeted. $count works as a counter, and because both sliders are populated from the same repeater field cross-referencing is easy.
 
-{% highlight html  startinline%}
+```
 ?>
 <li data-target="#myCarousel" id="carousel-selector-<?php echo $count; ?>"data-slide-to="<?php echo $count; ?>">
     <img src="<?php echo $thumbimage[0]; ?>" />
 </li>
 <?php
-{% endhighlight html %}
+```
 
 The data attribute **data-slide-to** is used to pass a raw slide index to myCarousel - it does what it says on the tin. In this case, clicking the thumbnail triggers a slide to the $count slide on the main carousel.
 
@@ -49,8 +49,7 @@ The image sub-field is named **image**.
 ##PHP function
 The PHP function for building the carousels is in the file **carousel-linked-thumbnails.php**. The code in this file could be added to the theme **custom.php** file. View the code here:
 
-{% highlight php  startinline%}
-
+```
 /*==============================================================================
   Carousel from ACF Repeater Field.
 ==============================================================================*/
@@ -160,26 +159,25 @@ function carawebs_carousel_images_slider() {
     }
 
 } // End the function
-{% endhighlight php %}
+```
 
 When using the Roots framework, add the code to **lib/custom.php**.
 
 The function can then be used in page templates. In this example, the function is added to the **content-single-project.php** template part:
 
-{% highlight html  startinline%}
-
+```
 <div class="row">
   <div class="col-md-12">
     <?php carawebs_carousel_images_slider(); ?>
   </div>
 </div>
-{% endhighlight html %}
+```
 
 ##Controls
 
 Controls are built into **/js/_carousel.js**:
 
-{% highlight js startinline%}
+```
 
 /*==============================================================================
     Set up - give first items emphasis classes.
@@ -273,7 +271,7 @@ Controls are built into **/js/_carousel.js**:
 
 
 }); // Close the "slid" function
-{% endhighlight js %}
+```
 
 ##WordPress: Enqueue Scripts
 When working within WordPress it's important to enqueue scripts properly - this prevents inefficient double loading of libraries and ensures that scripts load rationally.
@@ -286,7 +284,7 @@ For better efficiency, the raw js files could be targeted by Grunt and uglified.
 
 The enqueue script within the Roots framework are placed in **lib/scripts.php** in order to keep all script calls rational. In other setups the enqueue function could be added to the **custom.php** file.
 
-{% highlight php startinline%}
+```
 
 function carawebs_carousel_control(){
 
@@ -305,14 +303,14 @@ function carawebs_carousel_control(){
 }
 // Add hooks for front-end
 add_action('wp_enqueue_scripts', 'carawebs_carousel_control', 101);
-{% endhighlight php %}
+```
 
 ##Mobile Swipe Support
 I used the [touchSwipe jQuery plugin](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin/blob/master/jquery.touchSwipe.js) to achieve swipe support for mobile devices. This plugin is copyright (c) 2010 Matt Bryson and is dual licensed under the MIT or GPL Version 2 licenses.
 
 I plan to build in conditional logic so that touchSwipe is only loaded for mobile devices.
 
-{% highlight js startinline%}
+```
 $(document).ready(function() {
 
           //Enable swiping...
@@ -331,7 +329,7 @@ $(document).ready(function() {
             allowPageScroll: 'vertical';
           });
         });
-{% endhighlight php %}
+```
 
 ##Useful Tutorials
 
