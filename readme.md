@@ -1,37 +1,40 @@
-#Bootstrap Carousel with Thumbnail Navigation
-
 A Bootstrap carousel with thumbnail controls for WordPress.
+
+Fork or clone your own version of this repo.
 
 ##Quick Start
 * Paste contents of carousel-linked-thumbnails.php into the theme custom.php file
-* Create ACF repeater field called ```carousel_images```
-* Create a sub field ```image``` - set this to return image ID
-* Add ```js/_carousel.js``` to the theme assets/js/vendor directory
+* Create ACF repeater field called **carousel_images**
+* Create a sub field **image** - set this to return image ID
+* If using the Roots framework, add **js/_carousel.js** to the theme assets/js/vendor directory
 * If you use a different directory for the js files, remember to reference it properly in enqueue.php
-* Include ```jquery.touchSwipe.min.js``` and ```touchControl.js``` in assets/js/vendor for mobile swipe support.
-* Enqueue the javascript files by adding the contents of ```enqueue.php``` to your theme custom.php file, or /lib/scripts.php for the Roots framework
+* Include **jquery.touchSwipe.min.js** and **touchControl.js** in assets/js/vendor for mobile swipe support.
+* Enqueue the javascript files by adding the contents of **enqueue.php** to your theme custom.php file, or /lib/scripts.php for the Roots framework
 * Include the contents of carousel-linked-thumbnails.css in the theme CSS/LESS
 
-##Intro
+---
+
+##Introduction
+
 This is really two linked carousels:
 
 * A full size carousel, populated from an ACF repeater field
 * A thumbnail sized carousel, populated from the same field
 
-The thumbnail carousel targets the main carousel by means of the Bootstrap ```data-target``` attribute. The following code block shows how the carousel with id "myCarousel" is targeted. $count works as a counter, and because both sliders are populated from the same repeater field cross-referencing is easy.
+The thumbnail carousel targets the main carousel by means of the Bootstrap **data-target** attribute. The following code block shows how the carousel with id "myCarousel" is targeted. $count works as a counter, and because both sliders are populated from the same repeater field cross-referencing is easy.
 
-~~~
+{% highlight html  startinline%}
 ?>
 <li data-target="#myCarousel" id="carousel-selector-<?php echo $count; ?>"data-slide-to="<?php echo $count; ?>">
     <img src="<?php echo $thumbimage[0]; ?>" />
 </li>
 <?php
-~~~
+{% endhighlight html %}
 
-The data attribute ```data-slide-to``` is used to pass a raw slide index to myCarousel - it does what it says on the tin. In this case, clicking the thumbnail triggers a slide to the $count slide on the main carousel.
+The data attribute **data-slide-to** is used to pass a raw slide index to myCarousel - it does what it says on the tin. In this case, clicking the thumbnail triggers a slide to the $count slide on the main carousel.
 
 ##Building the Carousels
-The carousel is dynamic - it takes advantage of the Advanced Custom Fields WordPress plugin that allows the user to upload/select images. 
+The carousel is dynamic - it takes advantage of the Advanced Custom Fields WordPress plugin that allows the user to upload/select images.
 
 * An ACF field group is built, and associated with a Custom Post Type (in this case, the CPT "project").
 * A repeater field is added - the repeater field is a premium add-on for ACF (it is extremely useful and ridiculously under-priced).
@@ -39,13 +42,15 @@ The carousel is dynamic - it takes advantage of the Advanced Custom Fields WordP
 * If necessary, extra fields can be added to allow fine user control over what is displayed on each slide.
 * The image data for each slide is held as a row in the ACF repeater field.
 
-For these files, the repeater field is named ```carousel_images```.
+For these files, the repeater field is named **carousel_images**.
 
-The image sub-field is named ```image```.
+The image sub-field is named **image**.
 
-The PHP function for building the carousels is in the file ```carousel-linked-thumbnails.php```. The code in this file could be added to the theme ```custom.php``` file. View the code here:
+##PHP function
+The PHP function for building the carousels is in the file **carousel-linked-thumbnails.php**. The code in this file could be added to the theme **custom.php** file. View the code here:
 
-~~~
+{% highlight php  startinline%}
+
 /*==============================================================================
   Carousel from ACF Repeater Field.
 ==============================================================================*/
@@ -155,34 +160,36 @@ function carawebs_carousel_images_slider() {
     }
 
 } // End the function
-~~~
+{% endhighlight php %}
 
-When using the Roots framework, add the code to ```lib/custom.php```.
+When using the Roots framework, add the code to **lib/custom.php**.
 
-The function can then be used in page templates. In this example, the function is added to the ```content-single-project.php``` template part:
+The function can then be used in page templates. In this example, the function is added to the **content-single-project.php** template part:
 
-~~~
+{% highlight html  startinline%}
+
 <div class="row">
   <div class="col-md-12">
     <?php carawebs_carousel_images_slider(); ?>
   </div>
 </div>
-~~~
+{% endhighlight html %}
 
 ##Controls
 
-Controls are built into ```/js/_carousel.js```:
+Controls are built into **/js/_carousel.js**:
 
-~~~
+{% highlight js startinline%}
+
 /*==============================================================================
     Set up - give first items emphasis classes.
     Necessary because the slider is built dynamically
 ==============================================================================*/
    $(".carousel-inner .item:first").addClass("active");
-   
+
    // Give active class to the first thumbnail image
    $("#thumb-carousel li:first").addClass("selected");
-   
+
    // Give active class to the first thumbnail item (image-block)
    $("#thumb-carousel .item:first").addClass("active");
 
@@ -226,14 +233,14 @@ Controls are built into ```/js/_carousel.js```:
 ==============================================================================*/
     // Find the item in the thumb carousel that contains the currently displayed main image
     var targetItem = $( "[id^=item-]" ).has("[id^=carousel-selector-"+(currentIndex)+"]");
-    
+
     // Find the index number of this item by getting the last character of the id string
     var id_selector = $(targetItem).attr("id");
     var id = id_selector.substr(id_selector.length -1);
-    
+
     // Parse the string, return as an integer in base 10 format
     id = parseInt(id, 10);
-    
+
     // Make a correction, because the first thumbnail carousel item has a count of zero
     id = (id -1);
 
@@ -266,20 +273,21 @@ Controls are built into ```/js/_carousel.js```:
 
 
 }); // Close the "slid" function
-~~~
+{% endhighlight js %}
 
 ##WordPress: Enqueue Scripts
 When working within WordPress it's important to enqueue scripts properly - this prevents inefficient double loading of libraries and ensures that scripts load rationally.
 
-Within the Roots framework, the js files could be added to the assets/js folder and named with a leading underscore - they would then be concatenated into ```scripts.min.js```. This isn't a bad option - but it means that unecessary kilobytes will be added to pages that don't contain the carousel.
+Within the Roots framework, the js files could be added to the assets/js folder and named with a leading underscore - they would then be concatenated into **scripts.min.js**. This isn't a bad option - but it means that unecessary kilobytes will be added to pages that don't contain the carousel.
 
 Consider enqueueing the scripts only on the pages where they are required - in this case, the scripts are enqueued only on project CPT pages.
 
 For better efficiency, the raw js files could be targeted by Grunt and uglified.
 
-The enqueue script within the Roots framework are placed in ```lib/scripts.php``` in order to keep all script calls rational. In other setups the enqueue function could be added to the ```custom.php``` file.
+The enqueue script within the Roots framework are placed in **lib/scripts.php** in order to keep all script calls rational. In other setups the enqueue function could be added to the **custom.php** file.
 
-~~~
+{% highlight php startinline%}
+
 function carawebs_carousel_control(){
 
 	if ( is_singular( 'projects') ) { // only do this for "project" CPTs
@@ -297,12 +305,33 @@ function carawebs_carousel_control(){
 }
 // Add hooks for front-end
 add_action('wp_enqueue_scripts', 'carawebs_carousel_control', 101);
-~~~
+{% endhighlight php %}
 
 ##Mobile Swipe Support
 I used the [touchSwipe jQuery plugin](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin/blob/master/jquery.touchSwipe.js) to achieve swipe support for mobile devices. This plugin is copyright (c) 2010 Matt Bryson and is dual licensed under the MIT or GPL Version 2 licenses.
 
 I plan to build in conditional logic so that touchSwipe is only loaded for mobile devices.
+
+{% highlight js startinline%}
+$(document).ready(function() {
+
+          //Enable swiping...
+          $(".carousel-inner").swipe( {
+            //Generic swipe handler for all directions
+            swipeLeft:function(event, direction, distance, duration, fingerCount) {
+              $(this).parent().carousel('next');
+            },
+            swipeRight: function() {
+              $(this).parent().carousel('prev');
+            },
+            //Default is 75px, set to 0 for demo so any distance triggers swipe
+            threshold:0;
+
+            // Fixes the non-clickable thumbnail nav
+            allowPageScroll: 'vertical';
+          });
+        });
+{% endhighlight php %}
 
 ##Useful Tutorials
 
